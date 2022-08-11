@@ -5,19 +5,38 @@ import React, { useEffect } from "react";
 import { setResultAC, setShowResultAC } from "../../redux/raceResultReducer";
 import { disconnecToServer } from "../../api/api";
 
-const Race = (props) => {
+const RaceProces = (props) => {
 
+  if (props.horses === null) return <div>...Loading</div>
+    
+  const currentRaceResult  = props.horses.map((horse) => (
+    <RaceHorse key={horse.name} name={horse.name} distance={horse.distance} />
+  ));;
+
+  return (
+    <div div className="result__tabl">
+      {currentRaceResult}
+      <div className="horse-race__img">
+        <img
+          src="https://i.pinimg.com/originals/6e/d3/66/6ed366195595dd359abb4941268ccce7.gif"
+          alt="#"
+        />
+      </div>
+    </div>
+  );
+};
+
+const Race = (props) => {
   const showResult = useSelector((state) => state.raceResult.showResult);
   const maxDistace = useSelector((state) => state.horseBetting.maxDistace);
   const raceResult = useSelector((state) => state.raceResult.result);
 
   const dispatch = useDispatch();
-  
 
   const raceIsStop = () => {
     disconnecToServer();
     dispatch(setShowResultAC(true));
-  }
+  };
 
   const checkRaceResult = (horses, result, distance) => {
     const finishHorses = horses.filter(
@@ -29,21 +48,22 @@ const Race = (props) => {
     const currentResult = result;
     if (finishHorse.length !== 0) result.push(finishHorse[0].name);
     dispatch(setResultAC(currentResult));
-    if (horses.every((horse) => horse.distance === distance)) raceIsStop()
+    if (horses.every((horse) => horse.distance === distance)) raceIsStop();
   };
 
   useEffect(() => {
-    if (props.horses) checkRaceResult(props.horses, raceResult, 1000)
+    if (props.horses) checkRaceResult(props.horses, raceResult, 1000);
   }, [props.horses]);
 
-  let currentRaceResult = null;
-
-  if (props.horses !== null)
-    currentRaceResult = props.horses.map((horse) => (
-      <RaceHorse key={horse.name} name={horse.name} distance={horse.distance} />
-    ));
-
-  return <div className="result__container">{showResult ? <Result /> : <div div className="result__tabl">{currentRaceResult}</div>}</div>;
+  return (
+    <div className="result__container">
+      {showResult ? (
+        <Result />
+      ) : (
+        <RaceProces horses={props.horses} />
+      )}
+    </div>
+  );
 };
 
 export default Race;
