@@ -14,8 +14,6 @@ body {
   background: #333;
   border-radius: 5px;
   padding: 5px 10px;
-  display: grid;
-  grid-template-columns: 4fr 1fr 5fr;
   cursor: pointer;
 }
 .horse__result_finish {
@@ -23,9 +21,11 @@ body {
   background: #555;
   border-radius: 5px;
   padding: 5px 10px;
+  cursor: pointer;
+}
+.horse__container {
   display: grid;
   grid-template-columns: 4fr 1fr 5fr;
-  cursor: pointer;
 }
 .horse__result:hover {
   background: #666;
@@ -53,7 +53,7 @@ body {
 }
 .horse-race__img {
   width: 100%;
-  padding-bottom: 80%;
+  padding-bottom: 60%;
   position: relative;
 }
 .horse-race__img img {
