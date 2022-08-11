@@ -4,6 +4,7 @@ import Result from "../Result/Result";
 import React, { useEffect } from "react";
 import { setResultAC, setShowResultAC } from "../../redux/raceResultReducer";
 import { disconnecToServer } from "../../api/api";
+import { getShowResultStatusSelector, getRaceResultSelector, getMaxDistaceSelector } from "../../redux/selectors";
 
 const RaceProces = (props) => {
 
@@ -27,9 +28,9 @@ const RaceProces = (props) => {
 };
 
 const Race = (props) => {
-  const showResult = useSelector((state) => state.raceResult.showResult);
-  const maxDistace = useSelector((state) => state.horseBetting.maxDistace);
-  const raceResult = useSelector((state) => state.raceResult.result);
+  const showResult = useSelector((state) => getShowResultStatusSelector(state));
+  const maxDistace = useSelector((state) => getMaxDistaceSelector(state));
+  const raceResult = useSelector((state) => getRaceResultSelector(state));
 
   const dispatch = useDispatch();
 

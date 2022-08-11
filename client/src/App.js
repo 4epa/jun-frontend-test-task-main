@@ -9,13 +9,13 @@ import {
 } from "./api/api";
 import Race from "./component/Race/Race";
 import Button from '@mui/material/Button';
+import { getHorsesSelector, getRaceIsStartSelector } from './redux/selectors'
+
 
 function App() {
 
-  const [isConnected, setIsConnected] = useState(false);
-
-  const horses = useSelector((state) => state.horseBetting.horses);
-  const raceIsStart = useSelector((state) => state.horseBetting.raceIsStart);
+  const horses = useSelector(state => getHorsesSelector(state));
+  const raceIsStart = useSelector(state => getRaceIsStartSelector(state));
 
   const dispatch = useDispatch();
 
@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     connectToServer();
-    setIsConnected(true);
   }, []);
 
   return (

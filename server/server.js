@@ -86,9 +86,6 @@ app.get('/', function(req, res) {
 });
 
 socketServer.on('connection', (socket) => {
-  socket.on('getInitialDate', () => {
-    socket.emit('sendInitialDate', [horses, maxDistance])
-  }) 
   socket.on('start', () => {
     horses.map(horse => horse.distance = 0);
     trackTickers(socket);
