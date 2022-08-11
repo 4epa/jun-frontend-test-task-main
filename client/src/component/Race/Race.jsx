@@ -33,13 +33,7 @@ const Race = (props) => {
   };
 
   useEffect(() => {
-    if (props.horses) {
-      checkRaceResult(props.horses, raceResult, 1000)
-      if (props.horses.every((horse) => horse.distance === 1000)) {
-        disconnecToServer();
-        dispatch(setShowResultAC(true));
-      }
-    }
+    if (props.horses) checkRaceResult(props.horses, raceResult, 1000)
   }, [props.horses]);
 
   let currentRaceResult = null;
@@ -49,6 +43,7 @@ const Race = (props) => {
       <RaceHorse key={horse.name} name={horse.name} distance={horse.distance} />
     ));
 
-  return <div>{showResult ? <Result /> : <div>{currentRaceResult}</div>}</div>;
+  return <div className="result__container">{showResult ? <Result /> : <div div className="result__tabl">{currentRaceResult}</div>}</div>;
 };
+
 export default Race;
